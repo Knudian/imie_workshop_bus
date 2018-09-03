@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Bean\ClientResponse;
 use App\Service\AuthTokenService;
 use Lcobucci\JWT\Token;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +28,15 @@ class ApiController extends Controller
     public function __construct(AuthTokenService $authTokenService)
     {
         $this->authTokenService = $authTokenService;
+    }
+
+    /**
+     * @Route("/", name="home_page", methods={"GET"})
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function indexAction()
+    {
+        return $this->redirectToRoute('app.swagger_ui');
     }
 
     /**

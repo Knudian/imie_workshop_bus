@@ -4,6 +4,17 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    env(JWT_ISSUER): 'localhost'
+    env(JWT_AUDIENCE): 'localhost'
+    env(JWT_SIGNATURE): 'localhost'
+    env(JWT_BEFOREDELAY: 0
+    env(JWT_TTL): 3600
+
+    jwt.issuer: '%env(JWT_ISSUER)%'
+    jwt.audience: '%env(JWT_AUDIENCE)%'
+    jwt.signature: '%env(JWT_SIGNATURE)%'
+    jwt.delay.notbefore: '%env(JWT_BEFOREDELAY)%'
+    jwt.delay.ttl: '%env(JWT_TTL)%'
 
 services:
     # default configuration for services in *this* file

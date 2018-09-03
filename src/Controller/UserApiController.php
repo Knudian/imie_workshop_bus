@@ -36,7 +36,6 @@ class UserApiController extends ApiController
     /**
      * Sends back a JWT Token
      * @Route("/api/login", name="user_login", methods={"POST"})
-     *
      * @SWG\Response(
      *     response=200,
      *     description="Returns a JWT token for the given user"
@@ -75,8 +74,7 @@ class UserApiController extends ApiController
 
     /**
      * Reset the user with the given email password.
-     * @Route("/api/forgotten_password", name="user_forgottenpassword")
-     * @Method({"POST"})
+     * @Route("/api/forgotten_password", name="user_forgottenpassword", methods={"POST"})
      * @SWG\Parameter(
      *     name="email",
      *     in="query",
@@ -103,52 +101,8 @@ class UserApiController extends ApiController
     }
 
     /**
-     * Deactivate a user account
-     * @Route("/api/user/{userId}/deactivate", name="user_activation")
-     * @Method({"POST"})
-     * @SWG\Parameter(
-     *     name="userId",
-     *     type="integer",
-     *     in="path",
-     *     description="A user unique identifier"
-     * )
-     * @SWG\Response(
-     *     response=204,
-     *     description="Work has been done, no content sent back"
-     * )
-     * @SWG\Response(
-     *     response=304,
-     *     description="Nothing has changed, request was not applied"
-     * )
-     * @SWG\Response(
-     *     response=400,
-     *     description="Invalid request"
-     * )
-     * @SWG\Response(
-     *     response=401,
-     *     description="Insufficient rights"
-     * )
-     * @SWG\Response(
-     *     response=403,
-     *     description="Token has expired"
-     * )
-     * @Security(name="Bearer")
-     * @SWG\Tag(name="User Management routes")
-     * @param Request $request
-     * @param int $userId
-     * @return JsonResponse
-     */
-    public function deactivateAction(Request $request, int $userId) : JsonResponse
-    {
-        $token = $this->parseToken($request);
-        $response = $this->userService->deactivate($token, $userId);
-        return $this->buildResponse($response);
-    }
-
-    /**
      * Updates a user profile
-     * @Route("/api/user/{userId}", name="user_update")
-     * @Method({"PATCH"})
+     * @Route("/api/user/{userId}", name="user_update", methods={"PATCH"})
      *
      * @SWG\Parameter(
      *     name="userId",
@@ -199,8 +153,7 @@ class UserApiController extends ApiController
 
     /**
      * Deletes a user account
-     * @Route("/api/user/{userId}", name="user_delete")
-     * @Method({"DELETE"})
+     * @Route("/api/user/{userId}", name="user_delete", methods={"DELETE"})
      *
      * @SWG\Parameter(
      *     name="userId",
@@ -235,8 +188,7 @@ class UserApiController extends ApiController
 
     /**
      * Get a user profile
-     * @Route("/api/user/{userId}", name="user_profile")
-     * @Method({"GET"})
+     * @Route("/api/user/{userId}", name="user_profile", methods={"GET"})
      *
      * @SWG\Parameter(
      *     name="userId",
@@ -273,41 +225,8 @@ class UserApiController extends ApiController
     }
 
     /**
-     * Get the list of active accounts
-     * @Route("/api/user/actives", name="user_list_active")
-     * @Method({"GET"})
-     * @SWG\Response(
-     *     response=200,
-     *     description="The list of active accounts",
-     *     @SWG\Schema(
-     *         type="array",
-     *         @SWG\Items(ref=@Model(type=App\Entity\User::class))
-     *     )
-     * )
-     * @SWG\Response(
-     *     response=401,
-     *     description="Insufficient rights"
-     * )
-     * @SWG\Response(
-     *     response=403,
-     *     description="Token has expired"
-     * )
-     * @Security(name="Bearer")
-     * @SWG\Tag(name="User Management routes")
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function activeUserListAction(Request $request): JsonResponse
-    {
-        $token = $this->parseToken($request);
-        $response = $this->userService->getAllActives($token);
-        return $this->buildResponse($response);
-    }
-
-    /**
      * Creates a new User, and send an email to him.
-     * @Route("/api/user", name="user_creation")
-     * @Method({"POST"})
+     * @Route("/api/user", name="user_creation", methods={"POST"})
      * @SWG\Parameter(
      *     name="username",
      *     in="formData",

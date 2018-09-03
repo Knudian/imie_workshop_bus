@@ -7,6 +7,7 @@ use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JsonSerializable;
 use Serializable;
+use Swagger\Annotations as SWG;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -67,6 +68,9 @@ class User implements UserInterface, Serializable, JsonSerializable
     /**
      * @var string[]
      * @ORM\Column(type="array")
+     * @SWG\Property(type="array",
+     *     @SWG\Items(ref="string")
+     * )
      */
     private $roles = [];
 
