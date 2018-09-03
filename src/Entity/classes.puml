@@ -1,0 +1,22 @@
+@startuml
+
+interface UserInterface
+interface Serializable
+interface JsonSerializable
+
+User <|-- UserInterface
+User <|-- Serializable
+User <|-- JsonSerializable
+
+class User {
+    id: int
+    firstName: string
+    lastName: string
+    username: string {unique}
+    isProfessional: boolean
+    password: string
+    createdAt: DateTimeInterface
+    lastLogin: DateTimeInterface
+    roles: string[1..*]
+}
+@enduml
