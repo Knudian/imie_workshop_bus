@@ -76,6 +76,12 @@ class User implements UserInterface, Serializable, JsonSerializable
 
     /**
      * @var string
+     * @ORM\Column(type="string", length=4)
+     */
+    private $favoriteCurrency;
+
+    /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $email;
@@ -88,6 +94,7 @@ class User implements UserInterface, Serializable, JsonSerializable
         $this->createdAt = new \DateTime();
         $this->lastLogin = null;
         $this->addRole(Role::ROLE_USER);
+        $this->favoriteCurrency = 'EUR';
     }
 
     /**
@@ -264,13 +271,14 @@ class User implements UserInterface, Serializable, JsonSerializable
     public function jsonSerialize(): array
     {
         return array(
-            'id'        => $this->getId(),
-            'username'  => $this->getUsername(),
-            'firstName' => $this->getFirstName(),
-            'lastName'  => $this->getLastName(),
-            'lastLogin' => $this->getLastLogin(),
-            'createdAt' => $this->getCreatedAt(),
-            'roles'     => $this->getRoles(),
+            'id'                => $this->getId(),
+            'username'          => $this->getUsername(),
+            'firstName'         => $this->getFirstName(),
+            'lastName'          => $this->getLastName(),
+            'lastLogin'         => $this->getLastLogin(),
+            'createdAt'         => $this->getCreatedAt(),
+            'roles'             => $this->getRoles(),
+            'favorite_currency' => $this->getFavoriteCurrency(),
         );
     }
 
@@ -361,6 +369,24 @@ class User implements UserInterface, Serializable, JsonSerializable
     public function setEmail(string $email): self
     {
         $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFavoriteCurrency(): string
+    {
+        return $this->favoriteCurrency;
+    }
+
+    /**
+     * @param string $favoriteCurrency
+     * @return User
+     */
+    public function setFavoriteCurrency(string $favoriteCurrency): self
+    {
+        $this->favoriteCurrency = $favoriteCurrency;
         return $this;
     }
 }

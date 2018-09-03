@@ -18,5 +18,11 @@ class User {
     createdAt: DateTimeInterface
     lastLogin: DateTimeInterface
     roles: string[1..*]
+    favoriteCurrency: string
+}
+class Country {
+    isoAlpha3: string
+    countryCode: string
+    currencyCode: string
 }
 @enduml
